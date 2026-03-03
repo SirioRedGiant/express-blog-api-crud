@@ -1,6 +1,11 @@
 //note array dei post importati dalla cartella --> data
 const posts = require("../data/posts");
 
+// Aggiunto path assoluto direttamente all'array originale. Perchè sarà sempre utile
+posts.forEach(
+  (post, i) => (posts[i].image = "http://localhost:3000" + posts[i].image),
+);
+
 //^ Index
 const index = (req, res) => {
   let filteredPosts = posts;
