@@ -19,6 +19,29 @@ const index = (req, res) => {
   });
 };
 
+/*
+//^ Index
+const index = (req, res) => {
+  let filteredPosts = posts;
+
+  if (req.query.tag !== undefined) {
+    const tagCercato = req.query.tag.trim().toLowerCase();
+
+    filteredPosts = posts.filter((post) => {
+      const post_tags = post.tags.map((pt) => pt.toLowerCase());
+      console.log(post_tags);
+      if (post_tags.includes(tagCercato)) {
+        return true;
+      }
+      return false;
+    });
+  }
+  res.json({
+    list: filteredPosts,
+  });
+};
+*/
+
 //^ Show
 const show = (req, res) => {
   const id = parseInt(req.params.id); // l'ID  dei parametri arriva come stringa e lo trasformo in numero
@@ -52,14 +75,16 @@ const destroy = (req, res) => {
 
   //note Se l'indice è diverso da -1, il post è stato trovato
   if (postIndex !== -1) {
-    return res.status(404).json({
-      success: false,
-      message: `Impossibile da eliminare: il post con ID ${id} non esiste.`,
+    posts.splice(postIndex, 1); // Rimuove 1 elemento alla posizione postIndex
+    console.log(`Post ${id} eliminato. Lista aggiornata:`);
+    res.sendStatus(204); // successo (status 204 significa "No Content", operazione riuscita)
+  } else {
+    //note Se non lo trova, errore 404
+    res.status(404).json({
+      error: "Post non trovato",
+      message: `Impossibile da eliminare, il post ${id} non esiste.`,
     });
   }
-  posts.splice(postIndex, 1); // Rimuove 1 elemento alla posizione postIndex
-  console.log(`Post ${id} eliminato. Lista aggiornata:`);
-  res.sendStatus(204); // successo (status 204 significa "No Content", operazione riuscita)
 };
 
 module.exports = { index, show, store, update, destroy };
