@@ -3,8 +3,19 @@ const posts = require("../data/posts");
 
 //^ Index
 const index = (req, res) => {
+  let filteredPosts = posts;
+
+  if (req.query.tag !== undefined) {
+    const tagCercato = req.query.tag.trim().toLowerCase();
+    filteredPosts = posts.filter((post) => {
+      if (post.tags.includes(tagCercato.trim().toLowerCase())) {
+        return true;
+        return false;
+      }
+    });
+  }
   res.json({
-    list: posts,
+    list: filteredPosts,
   });
 };
 
