@@ -8,10 +8,10 @@ const index = (req, res) => {
   if (req.query.tag !== undefined) {
     const tagCercato = req.query.tag.trim().toLowerCase();
     filteredPosts = posts.filter((post) => {
-      if (post.tags.includes(tagCercato.trim().toLowerCase())) {
-        return true;
-        return false;
-      }
+      const tagsMinSanitized = post.tags.map((tag) =>
+        tag.trim().toLocaleLowerCase(),
+      );
+      return tagsMinSanitized.includes(tagCercato);
     });
   }
   res.json({
