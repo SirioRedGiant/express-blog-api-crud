@@ -122,7 +122,18 @@ const update = (req, res) => {
 
 //^ Modify
 const modify = (req, res) => {
-  res.send(`Modifica parziale del post ${req.params.id}`);
+  const id = parseInt(req.params.id);
+  const post = posts.find((post) => post.id === id);
+
+  //todo --> ripensa a come poterlo scrivere diversamente
+  // se il campo(body) è presente --> modifica altrimenti rimane uguale... avrei potuto farlo con || o con un ternario(RICORDA)
+  if (req.body.title) post.title = req.body.title;
+  if (req.body.content) post.content = req.body.content;
+  if (req.body.image) post.image = req.body.image;
+  if (req.body.tags) post.tags = req.body.tags;
+
+  res.json(post);
+  console.log(posts);
 };
 
 //^ Destroy
@@ -144,5 +155,5 @@ const destroy = (req, res) => {
   }
 };
 
-module.exports = { index, show, store, update, destroy };
+module.exports = { index, show, store, update, modify, destroy };
 // esportazione delle funzione singolarmente( sono in un oggetto... quindi "chiave : valore" omesso perchè identico)

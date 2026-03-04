@@ -13,6 +13,8 @@ router.post("/", postController.store);
 
 router.put("/:id", postController.update);
 
+router.patch("/:id", postController.modify);
+
 router.delete("/:id", postController.destroy);
 
 //^ Esportazione del router
