@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-app.use(express.static("public")); // middleware
+app.use(express.json()); // middleware "body-parser" per tradurre i dati grezzi che arrivano da Postman in formato json
+app.use(express.static("public")); // middleware per poter accedere alla cartella public(accedere alle immagini)
 
 //^ Import del router dei post
 const postsRouter = require("./routers/posts");

@@ -1,7 +1,7 @@
 {
-  "name": "express-blog-api-crud-parte-1",
+  "name": "express-blog-api-crud",
   "version": "1.0.0",
-  "description": "Introduzione al ROUTING  ed alle convenzioni REST. Filtri di ricerca e interazioni con api e better scaffolding. ",
+  "description": "Introduzione al ROUTING  ed alle convenzioni REST. Filtri di ricerca e interazioni con api e better scaffolding. Aggiunta di un post con l'utilizzo di un middleware chiamato BODY-PARSER. ",
   "keywords": [
     "Routing",
     "api",
