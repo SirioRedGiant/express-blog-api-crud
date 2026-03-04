@@ -65,12 +65,38 @@ const show = (req, res) => {
 
 //^ Store
 const store = (req, res) => {
-  res.send("Creazione nuovo post");
+  console.log("verifica dei dati ricevuti da Postman:", req.body);
+
+  const newId = posts[posts.length - 1].id + 1; // prendo l'ultimo e aggiungo 1
+
+  //* il nuovo oggetto post unendo ID e dati in arrivo
+
+  const newPost = {
+    id: newId,
+    title: req.body.title,
+    content: req.body.content,
+    image: req.body.image,
+    tags: req.body.tags,
+  };
+  /*  id: newId,
+    ...req.body, // prende title, content, image, tags dal body di Postman.... Stefano's version
+  };
+*/
+  // aggiungo il post all'array originale
+  posts.push(newPost);
+
+  // Status 201 (Created) nuovo post creato
+  res.status(201).json(newPost);
 };
 
 //^ Update
 const update = (req, res) => {
   res.send(`Modifica totale del post ${req.params.id}`);
+};
+
+//^ Modify
+const modify = (req, res) => {
+  res.send(`Modifica parziale del post ${req.params.id}`);
 };
 
 //^ Destroy
