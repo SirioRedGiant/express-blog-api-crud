@@ -91,7 +91,33 @@ const store = (req, res) => {
 
 //^ Update
 const update = (req, res) => {
-  res.send(`Modifica totale del post ${req.params.id}`);
+  //note serve a --> identificazione del bersaglio. Su Postman PUT http://localhost:3000/posts/3, il numero 3 arriva al server come una stringa ("3"). quindi lo converto in numero con parseInt
+  const id = parseInt(req.params.id);
+
+  //note serve a --> creare un collegamento (riferimento) all'oggetto originale. VERIFICA L'ESISTENZA --> se l'ID non esiste restituisce undefined e attiva errore 404 ed evita che crashi il server modificando qualcosa che non esiste.
+  /*
+   * //! Riferimento di Memoria:
+   * //?  In JavaScript, quando assegni un oggetto di un array a una costante (come const post), non stai creando una copia, ma un puntatore all'originale che sta dentro l'array posts.
+   * //? --> È come se posts fosse un condominio e post fosse la chiave di un appartamento specifico. Se usi la chiave per dipingere le pareti (es. post.title = ...), stai cambiando le pareti dell'appartamento dentro il condominio, non di una casa giocattolo. MDN: Array.find
+   */
+  const post = posts.find((post) => post.id === id);
+
+  // Se non c'è
+  if (!post) {
+    return res.status(404).json({
+      success: false,
+      message: "Post non trovato",
+    });
+  }
+
+  // update dei dati dell'oggetto trovato con quelli nuovi di req.body
+  post.title = req.body.title;
+  post.content = req.body.content;
+  post.image = req.body.image;
+  post.tags = req.body.tags;
+
+  res.json(post);
+  console.log(posts);
 };
 
 //^ Modify
