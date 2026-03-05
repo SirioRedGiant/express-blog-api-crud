@@ -65,6 +65,7 @@ const show = (req, res) => {
 
 //^ Store
 const store = (req, res) => {
+  console.log(provaVariabileInesistente);
   console.log("verifica dei dati ricevuti da Postman:", req.body);
 
   const newId = posts[posts.length - 1].id + 1; // prendo l'ultimo e aggiungo 1
