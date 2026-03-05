@@ -1,7 +1,7 @@
 const quotes = require("../data/quotes");
 
 const funnyQuote = (req, res, next) => {
-  const indexRandom = Math.floor(Math.random() * quotes.lenght);
+  const indexRandom = Math.floor(Math.random() * quotes.length);
 
   //note  [res.locals] è un oggetto che vive solo per la durata di questa richiesta. È il posto standard dove mettere dati che servono alla risposta finale.
   res.locals.funnyQuote = quotes[indexRandom];
