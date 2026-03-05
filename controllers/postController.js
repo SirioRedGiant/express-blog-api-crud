@@ -8,6 +8,7 @@ posts.forEach(
 
 //^ Index
 const index = (req, res) => {
+  console.log("dove sei finito?", res.locals);
   let filteredPosts = posts;
 
   if (req.query.tag !== undefined) {
@@ -21,6 +22,7 @@ const index = (req, res) => {
   }
   res.json({
     list: filteredPosts,
+    quote: res.locals.funnyQuote,
   });
 };
 
@@ -58,14 +60,16 @@ const show = (req, res) => {
   const post = posts.find((post) => post.id === id); // trovo il post con lo stesso ID
 
   if (post) {
-    return res.json(post);
+    return res.json({
+      post,
+      quote: res.locals.funnyQuote,
+    });
   }
   res.status(404).json(responseData);
 };
 
 //^ Store
 const store = (req, res) => {
-  console.log(provaVariabileInesistente);
   console.log("verifica dei dati ricevuti da Postman:", req.body);
 
   const newId = posts[posts.length - 1].id + 1; // prendo l'ultimo e aggiungo 1
@@ -87,7 +91,10 @@ const store = (req, res) => {
   posts.push(newPost);
 
   // Status 201 (Created) nuovo post creato
-  res.status(201).json(newPost);
+  res.status(201).json({
+    newPost,
+    quote: res.locals.funnyQuote,
+  });
 };
 
 //^ Update
@@ -117,7 +124,10 @@ const update = (req, res) => {
   post.image = req.body.image;
   post.tags = req.body.tags;
 
-  res.json(post);
+  res.json({
+    post,
+    quote: res.locals.funnyQuote,
+  });
   console.log(posts);
 };
 
@@ -133,7 +143,10 @@ const modify = (req, res) => {
   if (req.body.image) post.image = req.body.image;
   if (req.body.tags) post.tags = req.body.tags;
 
-  res.json(post);
+  res.json({
+    post,
+    quote: res.locals.funnyQuote,
+  });
   console.log(posts);
 };
 
